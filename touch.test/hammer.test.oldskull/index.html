@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Test Rough Hammer</title>
+<!-- inali.dev - interact-->
+  <style media="screen">
+  body {
+    height: 100vh;
+    width: 100vw;
+  }
+  .cuadrado {
+    margin: auto auto;
+    background-color: orange;
+    height: 200px;
+    width: 200px;
+  }
+  .cuadrado-dos {
+
+    background-color: blue;
+    height: 200px;
+    width: 200px;
+  }
+  .expand {
+    height: 300px;
+    width: 300px;
+  }
+  .color {
+    background-color: red;
+  }
+
+</style>
+
+</head>
+<body>
+
+  <div class="cuadrado">Test Hammer</div>
+  <div class="cuadrado-dos">Test Hammer 2</div>
+
+</body>
+
+<script type="text/javascript" src="./hammer.min.js"></script>
+<script>
+(
+  function($) {
+
+    let cuadro = document.querySelector('.cuadrado')
+    let cuadroDos = document.querySelector('.cuadrado-dos')
+
+    let manager = new Hammer.Manager(cuadro)
+    let managerDos = new Hammer.Manager(cuadroDos)
+
+
+    let tap = new Hammer.Tap({
+      event: 'onetap',
+      taps:1,
+      interval: 10
+    })
+    manager.add(tap)
+
+    let doubleTap = new Hammer.Tap({
+      event: 'dobletap',
+      pointers: 1,
+      taps: 1
+      //interval: 500
+
+    })
+    managerDos.add(doubleTap)
+
+    manager.on('onetap', (e) => {
+      e.target.classList.toggle('expand')
+      // console.log('Hola Hammer');
+      console.log(manager);
+      // console.log(e)
+    })
+
+    managerDos.on('dobletap', (f) => {
+      f.target.classList.toggle('color')
+      console.log(managerDos);
+
+    })
+
+
+  }()
+)
+
+
+
+</script>
+</html>
