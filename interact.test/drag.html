@@ -13,7 +13,6 @@
     padding: 32px;
   }
   .cuadro {
-    margin: auto auto;
     background-color: purple;
     height: 100px;
     width: 100px;
@@ -22,29 +21,48 @@
     padding: 4%;
     touch-action: none;
     user-select: none;
-    -webkit-transform: translate(0px, 0px);
-    transform: translate(0px, 0px);
+    -webkit-transform: translate(50%, 50%);
+    transform: translate(50%, 50%);
   }
-  .drop {
-    height: 208px;
-    background-color: lightgray;
-  }
-
   .drop-1, .drop-2, .drop-3, .drop-4 {
     background-color: lightgreen;
     height: 100px;
     width: 100px;
     margin: 4px
   }
+  .drop-1 {
+    position: fixed;
+    top: 32px;
+    left: 32px;
+  }
+  .drop-2 {
+    position: fixed;
+    top: 32px;
+    right: 32px;
+  }
+  .drop-3 {
+    position: fixed;
+    bottom: 32px;
+    left: 32px;
+  }
+  .drop-4 {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+  }
+  #boton-crea {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    margin-left: -72px;
+  }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
 </head>
 <body>
-  <div class="drop">
-    <div class="drop-1">x1</div>
-    <div class="drop-2">x2</div>
+  <div class="drop-1">x1</div>
+  <div class="drop-2">x2</div>
 
-  </div>
   <div class="contenido">
 
     <div id="cuadros">
@@ -54,10 +72,8 @@
       <button id="boton-crea" type="button" name="crea-cuadro">Crea Instancia</button>
     </div>
   </div>
-  <div class="drop">
-    <div class="drop-3">x3</div>
-    <div class="drop-4">x4</div>
-  </div>
+  <div class="drop-3">x3</div>
+  <div class="drop-4">x4</div>
 
   <!-- <div class="cuadro">Test Interact</div> -->
 </body>
@@ -76,14 +92,11 @@
         })
       ],
       // autoScroll: true,
-
       // console.log(e)
       onmove: dragMoveListener,
-
       onend: (e) => {
         console.log('drag')
       }
-
     })
     //
     CreaElemento()
@@ -108,34 +121,27 @@ function dragMoveListener (event) {
 
 function CreaElemento() {
 
-  let boton = document.querySelector('#boton-crea')
-  let html = document.querySelector('#cuadros')
+  const elementos = []
+  let contenedor = document.querySelector("#cuadros")
+  let iter, boton = document.querySelector('#boton-crea')
 
   boton.addEventListener('click', (e) => {
 
-    html.innerHTML = '<div class="cuadro">Arrastra el cuadro</div>'
+    // controla la cantidad de elementos
+    iter = elementos.length
+    if (iter < 4) {
 
+      elementos.push(`<div id="cuadro-${iter}">HOLA! Soy el cuadro <h1>${iter}</h1></div>`)
+      console.log(elementos[iter])//debug
+      contenedor.appendChild("elementos[iter]")
+
+    } else {
+
+      alert(`Has agregado el máximo de Cuadros (${iter})`)
+
+    }
 
   })
 }
-// this is used later in the resizing and gesture demos
-// window.dragMoveListener = dragMoveListener
-//
-// interact('.cuadro-dos')
-// .on('tap', function (event) {
-//   event.currentTarget.classList.toggle('color')
-//   event.preventDefault()
-// })
-// .on('doubletap', function (event) {
-//   event.currentTarget.classList.toggle('large')
-//   event.currentTarget.classList.remove('rotate')
-//   event.preventDefault()
-// })
-// .on('hold', function (event) {
-//   event.currentTarget.classList.toggle('rotate')
-//   event.currentTarget.classList.remove('large')
-// })
-
-
 </script>
 </html>
