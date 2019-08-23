@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Test Rough Create + Drag n' Drop</title>
+  <!-- inali.dev - interact-->
+  <style media="screen">
+
+  body {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    padding: 32px;
+  }
+  .cuadro {
+    margin: auto auto;
+    background-color: purple;
+    height: 100px;
+    width: 100px;
+    color: white;
+    border-radius: 0.75em;
+    padding: 4%;
+    touch-action: none;
+    user-select: none;
+    -webkit-transform: translate(0px, 0px);
+    transform: translate(0px, 0px);
+  }
+  .drop {
+    height: 208px;
+    background-color: lightgray;
+  }
+
+  .drop-1, .drop-2, .drop-3, .drop-4 {
+    background-color: lightgreen;
+    height: 100px;
+    width: 100px;
+    margin: 4px
+  }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+</head>
+<body>
+  <div class="drop">
+    <div class="drop-1">x1</div>
+    <div class="drop-2">x2</div>
+
+  </div>
+  <div class="contenido">
+
+    <div id="cuadros">
+
+    </div>
+    <div>
+      <button id="boton-crea" type="button" name="crea-cuadro">Crea Instancia</button>
+    </div>
+  </div>
+  <div class="drop">
+    <div class="drop-3">x3</div>
+    <div class="drop-4">x4</div>
+  </div>
+
+  <!-- <div class="cuadro">Test Interact</div> -->
+</body>
+
+<script>
+(
+  function($) {
+    // drag
+    interact('.cuadro')
+    .draggable({
+      inertia: true,
+      modifiers: [
+        interact.modifiers.restrictRect({
+          restriction: 'body',
+          endOnly: true
+        })
+      ],
+      // autoScroll: true,
+
+      // console.log(e)
+      onmove: dragMoveListener,
+
+      onend: (e) => {
+        console.log('drag')
+      }
+
+    })
+    //
+    CreaElemento()
+  }()
+)
+
+function dragMoveListener (event) {
+  var target = event.target
+  // keep the dragged position in the data-x/data-y attributes
+  var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
+  var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+
+  // translate the element
+  target.style.webkitTransform =
+  target.style.transform =
+  'translate(' + x + 'px, ' + y + 'px)'
+
+  // update the posiion attributes
+  target.setAttribute('data-x', x)
+  target.setAttribute('data-y', y)
+}
+
+function CreaElemento() {
+
+  let boton = document.querySelector('#boton-crea')
+  let html = document.querySelector('#cuadros')
+
+  boton.addEventListener('click', (e) => {
+
+    html.innerHTML = '<div class="cuadro">Arrastra el cuadro</div>'
+
+
+  })
+}
+// this is used later in the resizing and gesture demos
+// window.dragMoveListener = dragMoveListener
+//
+// interact('.cuadro-dos')
+// .on('tap', function (event) {
+//   event.currentTarget.classList.toggle('color')
+//   event.preventDefault()
+// })
+// .on('doubletap', function (event) {
+//   event.currentTarget.classList.toggle('large')
+//   event.currentTarget.classList.remove('rotate')
+//   event.preventDefault()
+// })
+// .on('hold', function (event) {
+//   event.currentTarget.classList.toggle('rotate')
+//   event.currentTarget.classList.remove('large')
+// })
+
+
+</script>
+</html>
