@@ -133,7 +133,7 @@ function Elemento(id) {
 
     let cierra = document.querySelector(`.close-${id}`)
     me = document.querySelector(`#cuadro-${id}`)
-    cierra.addEventListener('click', (e) => {
+    cierra.addEventListener('tap click', (e) => {
       // console.log("Cierra: " + me)
       me.remove(`cuadro-${id}`)
     })
