@@ -10,19 +10,20 @@
     display: flex;
     height: 100vh;
     width: 100vw;
-    /* padding: 16px; */
+    margin: 0;
   }
   .cuadro {
     background-color: purple;
-    height: 100px;
-    width: 100px;
+    height: 90px;
+    width: 90px;
     color: white;
     border-radius: 0.75em;
-    padding: 4%;
+    padding: 1%;
+    position: fixed;
     touch-action: none;
     user-select: none;
-    -webkit-transform: translate(50%, 50%);
-    transform: translate(50%, 50%);
+    -webkit-transform: translate(0%, 0%);
+    transform: translate(0%, 0%);
   }
   .contenido {
     height: 100%;
@@ -32,7 +33,6 @@
     background-color: lightgreen;
     height: 100px;
     width: 100px;
-    margin: 4px;
     position: fixed;
     z-index: -1;
   }
@@ -58,12 +58,20 @@
     left: 50%;
     margin-left: -72px;
   }
+  /*  */
+  .drop-active {
+    border-color: lime;
+  }
+  .drop-target {
+    background-color: lime;
+  }
+  /*  */
   </style>
   <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
 </head>
 <body>
-  <div class="drop-1">x1</div>
-  <div class="drop-2">x2</div>
+  <div class="drop-1 dropall">x1</div>
+  <div class="drop-2 dropall">x2</div>
 
   <div class="contenido">
 
@@ -74,8 +82,8 @@
       <button id="boton-crea" type="button" name="crea-cuadro">Crea Instancia</button>
     </div>
   </div>
-  <div class="drop-3">x3</div>
-  <div class="drop-4">x4</div>
+  <div class="drop-3 dropall">x3</div>
+  <div class="drop-4 dropall">x4</div>
 
   <!-- <div class="cuadro">Test Interact</div> -->
 </body>
@@ -83,28 +91,31 @@
 <script>
 (
   function($) {
-    // drag
-    interact('.cuadro')
-    .draggable({
-      inertia: true,
-      modifiers: [
-        interact.modifiers.restrictRect({
-          restriction: 'body',
-          endOnly: true
-        })
-      ],
-      // autoScroll: true,
-      // console.log(e)
-      onmove: dragMoveListener,
-      onend: (e) => {
-        console.log('drag')
-      }
-    })
+
     //
+    Drag()
+    Drop()
     CreaElemento()
   }()
 )
-
+function Drag() {
+  // drag
+  interact('.cuadro')
+  .draggable({
+    inertia: true,
+    modifiers: [
+      interact.modifiers.restrictRect({
+        restriction: 'body',
+        endOnly: true
+      })
+    ],
+    // autoScroll: true,
+    onmove: dragMoveListener,
+    onend: (e) => {
+      console.log('dragEnd')
+    }
+  })
+}
 function dragMoveListener (event) {
   var target = event.target
   // keep the dragged position in the data-x/data-y attributes
@@ -134,7 +145,7 @@ function CreaElemento() {
     if (iter < 4) {
 
       x = document.createElement('div')
-      x.innerHTML = `<div id="cuadro-${iter+1}" class="cuadro">HOLA! Soy el cuadro <h1>${iter+1}</h1></div>`
+      x.innerHTML = `<div id="cuadro-${iter+1}" class="cuadro">HOLA! soy  una zona linguistica <h3>${iter+1}</h3></div>`
       // Agregar al array
       elementos.push(x)
       //Agrega elemento al front
@@ -146,6 +157,55 @@ function CreaElemento() {
 
     }
 
+  })
+}
+
+function Drop() {
+  interact(".drop-1, .drop-2, .drop-3, .drop-4").dropzone({
+    accept: ".cuadro",
+    // Requiere el 15% del elemento para ejercer el 'drop'
+    overlap: 0.15,
+    // escucha eventos relacionados al 'drop'
+    ondropactivate: function (event) {
+      // add active dropzone feedback
+      event.target.classList.add('drop-active')
+    },
+    //al entrar en zona de 'drop'
+    ondragenter: function (event) {
+      var draggableElement = event.relatedTarget
+      var dropzoneElement = event.target
+      // feedback the possibility of al 'dropzone'
+      dropzoneElement.classList.add('drop-target')
+      draggableElement.textContent = 'En zona de "drop"'
+    },
+    //al soltarlo dentro de la zona de 'drop'
+    ondrop: function (event) {
+      let dropzone = event.target
+      let elemento = event.relatedTarget
+      elemento.textContent = 'Yuju! estoy dentro'
+      elemento.style.background = 'gray'
+      // posiciona elemento
+      elemento.style.webkitTransform =
+      elemento.style.transform =
+      'translate(' + dropzone.offsetLeft + 'px, ' + dropzone.offsetTop + 'px)'
+
+      // debug
+      console.log(elemento.offsetTop + " : " + elemento.offsetLeft)
+      console.log(dropzone.offsetTop + " : " + dropzone.offsetLeft)
+      //
+    },
+    //Al salir del 'dropzone'
+    ondragleave: function (event) {
+      event.target.classList.remove('drop-target')//quita color de dropzone
+      event.relatedTarget.textContent = ':( estoy fuera'
+      event.relatedTarget.style.background = 'purple'
+    },
+    ondropdeactivate: function (event) {
+      let elemento = event.relatedTarget
+
+      event.target.classList.remove('drop-active')
+      event.target.classList.remove('drop-target')
+    }
   })
 }
 </script>
