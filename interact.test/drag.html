@@ -133,9 +133,12 @@ function Elemento(id) {
 
     let cierra = document.querySelector(`.close-${id}`)
     me = document.querySelector(`#cuadro-${id}`)
-    cierra.addEventListener('click touchend', (e) => {
-      // console.log("Cierra: " + me)
-      me.remove(`cuadro-${id}`)
+    mex = me.remove(`cuadro-${id}`)
+    cierra.addEventListener('click', (e) => {//pc
+      mex
+    })
+    cierra.addEventListener('touchend', (e) => {//mobile
+      mex
     })
 
   },100)
