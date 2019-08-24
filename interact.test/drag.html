@@ -133,12 +133,11 @@ function Elemento(id) {
 
     let cierra = document.querySelector(`.close-${id}`)
     me = document.querySelector(`#cuadro-${id}`)
-    mex = me.remove(`cuadro-${id}`)
     cierra.addEventListener('click', (e) => {//pc
-      mex
+      me.remove(`cuadro-${id}`)
     })
     cierra.addEventListener('touchend', (e) => {//mobile
-      mex
+      me.remove(`cuadro-${id}`)
     })
 
   },100)
@@ -157,20 +156,20 @@ function CreaElemento() {
     // controla la cantidad de elementos
     // if (iter < 4) {
 
-      x = document.createElement('div')
-      // html = (`<div id="cuadro-${iter+1}" class="cuadro">${close}Hola! soy  una zona linguistica <h3>${iter+1}</h3></div>`)
-      html = Elemento(iter+1)
-      // console.log(html.html);
-      x.innerHTML = html
-      // Agregar al array
-      elementos.push(x)
-      //Agrega elemento al front
-      contenedor.appendChild(elementos[iter])
-      //
+    x = document.createElement('div')
+    // html = (`<div id="cuadro-${iter+1}" class="cuadro">${close}Hola! soy  una zona linguistica <h3>${iter+1}</h3></div>`)
+    html = Elemento(iter+1)
+    // console.log(html.html);
+    x.innerHTML = html
+    // Agregar al array
+    elementos.push(x)
+    //Agrega elemento al front
+    contenedor.appendChild(elementos[iter])
+    //
 
     // } else {
 
-      // alert(`Has agregado el máximo de Cuadros (${iter})`)
+    // alert(`Has agregado el máximo de Cuadros (${iter})`)
 
     // }
 
