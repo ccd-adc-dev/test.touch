@@ -14,8 +14,8 @@
   }
   .cuadro {
     background-color: purple;
-    height: 90px;
-    width: 90px;
+    height: 140px;
+    width: 140px;
     color: white;
     border-radius: 10px;
     padding: 1%;
@@ -36,14 +36,14 @@
     font-weight: bolder;
     color: red;
     border: 1px solid red;
-    border-radius: 100px;
+    border-s: 100px;
     text-align: center;
     cursor: pointer;
   }
   .drop-1, .drop-2, .drop-3, .drop-4 {
     background-color: lightgreen;
-    height: 100px;
-    width: 100px;
+    height: 150px;
+    width: 150px;
     position: fixed;
     z-index: -1;
   }
@@ -71,7 +71,7 @@
     border: 0;
     background: pink;
     padding: 16px 32px;
-    margin-left: -115.5px;
+    margin-left: -139.5px;
   }
   /*  */
   .drop-active {
@@ -227,7 +227,7 @@ function Drop() {
       var elemento = event.relatedTarget
       var dropzone = event.target
       dropzone.classList.add('drop-target')
-      elemento.style.borderRadius = '30px'
+      elemento.style.borders = '30px'
     },
     //al soltarlo dentro de la zona de 'drop'
     ondrop: (event) => {
@@ -235,7 +235,7 @@ function Drop() {
       let elemento = event.relatedTarget
       elemento.style.background = 'gray'
       // posiciona elemento
-      elemento.style.borderRadius = '50px'
+      elemento.style.borderRadius = '100px'
       elemento.style.webkitTransform =
       elemento.style.transform =
       'translate(' + dropzone.offsetLeft + 'px, ' + dropzone.offsetTop + 'px)'
