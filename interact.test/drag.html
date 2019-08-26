@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Test Rough Create + Drag n' Drop</title>
+  <!-- inali.dev - interact-->
+  <style media="screen">
+
+  body {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+  }
+  .cuadro {
+    background-color: purple;
+    height: 140px;
+    width: 140px;
+    color: white;
+    border-radius: 10px;
+    padding: 1%;
+    position: fixed;
+    touch-action: none;
+    user-select: none;
+    text-align: center;
+    font-size: 11px;
+    -webkit-transform: translate(0%, 0%);
+    transform: translate(0%, 0%);
+  }
+  .contenido {
+    height: 100%;
+    width: 100%;
+  }
+  .close {
+    padding: 2px;
+    font-weight: bolder;
+    color: red;
+    border: 1px solid red;
+    border-s: 100px;
+    text-align: center;
+    cursor: pointer;
+  }
+  .drop-1, .drop-2, .drop-3, .drop-4 {
+    background-color: lightgreen;
+    height: 150px;
+    width: 150px;
+    position: fixed;
+    z-index: -1;
+  }
+  .drop-1 {
+    top: 32px;
+    left: 32px;
+  }
+  .drop-2 {
+    top: 32px;
+    right: 32px;
+  }
+  .drop-3 {
+    bottom: 32px;
+    left: 32px;
+  }
+  .drop-4 {
+    bottom: 32px;
+    right: 32px;
+  }
+  #boton-crea {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    font-size: 2em;
+    border: 0;
+    background: pink;
+    padding: 16px 32px;
+    margin-left: -139.5px;
+  }
+  /*  */
+  .drop-active {
+    border-color: lime;
+  }
+  .drop-target {
+    background-color: lime;
+  }
+  /*  */
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+</head>
+<body>
+  <div class="drop-1 dropall">Area 1</div>
+  <div class="drop-2 dropall">Area 2</div>
+
+  <div class="contenido">
+
+    <div id="cuadros">
+
+    </div>
+    <div>
+      <button id="boton-crea" type="button" name="crea-cuadro">Crea Elemento</button>
+    </div>
+  </div>
+  <div class="drop-3 dropall">Area 3</div>
+  <div class="drop-4 dropall">Area 4</div>
+
+  <!-- <div class="cuadro">Test Interact</div> -->
+</body>
+
+<script>
+(//ready
+  function($) {
+
+    //
+    CreaElemento()
+    Drag()
+    Drop()
+    //
+  }()
+)//fin ready
+//
+const elementos = []
+
+function Elemento(id) {
+
+  let html, cierra, me
+  html = `<div id="cuadro-${id}" class="cuadro">
+  <div class="close-${id} close">X</div>
+  <div class="txt">
+  Hola! soy  una zona linguistica
+  </div>
+  <h3>${id}</h3>
+  </div>`
+
+  //cierra elemento y borra del array de elementos
+  setTimeout(() => {
+
+    let cierra = document.querySelector(`.close-${id}`)
+    me = document.querySelector(`#cuadro-${id}`)
+    cierra.addEventListener('click', (e) => {//pc
+      me.remove(`cuadro-${id}`)
+    })
+    cierra.addEventListener('touchend', (e) => {//mobile
+      me.remove(`cuadro-${id}`)
+    })
+
+  },100)
+
+  return html
+}
+
+function CreaElemento() {
+
+  let contenedor = document.querySelector("#cuadros")
+  let html, iter, x, boton = document.querySelector('#boton-crea')
+
+  boton.addEventListener('click', (e) => {
+
+    iter = elementos.length
+    // controla la cantidad de elementos
+    // if (iter < 4) {
+
+    x = document.createElement('div')
+    // html = (`<div id="cuadro-${iter+1}" class="cuadro">${close}Hola! soy  una zona linguistica <h3>${iter+1}</h3></div>`)
+    html = Elemento(iter+1)
+    // console.log(html.html);
+    x.innerHTML = html
+    // Agregar al array
+    elementos.push(x)
+    //Agrega elemento al front
+    contenedor.appendChild(elementos[iter])
+    //
+
+    // } else {
+
+    // alert(`Has agregado el máximo de Cuadros (${iter})`)
+
+    // }
+
+  })
+
+}//fin crear elemento
+
+function Drag() {
+  // drag
+  interact('.cuadro')
+  .draggable({
+    inertia: true,
+    modifiers: [
+      interact.modifiers.restrictRect({
+        restriction: 'body',
+        endOnly: true
+      })
+    ],
+    // autoScroll: true,
+    onmove: dragMoveListener,
+    onend: (e) => {
+      console.log('dragEnd')
+    }
+  })
+}
+
+function dragMoveListener (event) {
+  var target = event.target
+  // keep the dragged position in the data-x/data-y attributes
+  var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
+  var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+
+  // translate the element
+  target.style.webkitTransform =
+  target.style.transform =
+  'translate(' + x + 'px, ' + y + 'px)'
+
+  // update the posiion attributes
+  target.setAttribute('data-x', x)
+  target.setAttribute('data-y', y)
+}
+
+function Drop() {
+
+  interact(".drop-1, .drop-2, .drop-3, .drop-4").dropzone({
+    accept: ".cuadro",
+    // Requiere el 15% del elemento para ejercer el 'drop'
+    overlap: 0.15,
+    // Eventos relacionados al 'drop':
+    ondropactivate: (event) => {
+      event.target.classList.add('drop-active')
+    },
+    //al entrar en zona de 'drop'
+    ondragenter: (event) => {
+      var elemento = event.relatedTarget
+      var dropzone = event.target
+      dropzone.classList.add('drop-target')
+      elemento.style.borders = '30px'
+    },
+    //al soltarlo dentro de la zona de 'drop'
+    ondrop: (event) => {
+      let dropzone = event.target
+      let elemento = event.relatedTarget
+      elemento.style.background = 'gray'
+      // posiciona elemento
+      elemento.style.borderRadius = '100px'
+      elemento.style.webkitTransform =
+      elemento.style.transform =
+      'translate(' + dropzone.offsetLeft + 'px, ' + dropzone.offsetTop + 'px)'
+      // debug
+      console.log(elemento.offsetTop + " : " + elemento.offsetLeft)
+      console.log(dropzone.offsetTop + " : " + dropzone.offsetLeft)
+      //
+    },
+    //Al salir del 'dropzone'
+    ondragleave: (event) => {
+      let dropzone = event.target
+      let elemento = event.relatedTarget
+      dropzone.classList.remove('drop-target')//quita color de dropzone
+      elemento.style.background = 'purple'
+      elemento.style.borderRadius = '5px'
+    },
+    // Al dejar fuera de la zona de 'drop'
+    ondropdeactivate: (event) => {
+      event.target.classList.remove('drop-active')
+      event.target.classList.remove('drop-target')
+    }
+  })
+}
+
+</script>
+</html>
