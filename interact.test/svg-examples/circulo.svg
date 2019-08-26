@@ -1,3 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" viewBox="0 0 640 640" width="640" height="640"><defs><path d="M423.01 303.73C423.01 367.57 370.11 419.4 304.94 419.4C239.77 419.4 186.87 367.57 186.87 303.73C186.87 239.9 239.77 188.07 304.94 188.07C370.11 188.07 423.01 239.9 423.01 303.73Z" id="bnro8vTd7"></path></defs><g><g><g><use xlink:href="#bnro8vTd7" opacity="1" fill="#1769c3" fill-opacity="1"></use></g></g></g></svg>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+    preserveAspectRatio="xMidYMid meet"
+    viewBox="178.6385542168675 77.43373493975895 357.0120481927711 357.01204819277126" width="353.01" height="353.01">
+    <defs>
+        <path
+            d="M532.65 254.94C532.65 352.36 453.56 431.45 356.14 431.45C258.73 431.45 179.64 352.36 179.64 254.94C179.64 157.52 258.73 78.43 356.14 78.43C453.56 78.43 532.65 157.52 532.65 254.94Z"
+            id="c1knWwckt"></path>
+    </defs>
+    <g>
+        <g>
+            <use xlink:href="#c1knWwckt" opacity="1" fill="#651e48" fill-opacity="1"></use>
+        </g>
+    </g>
+</svg>
