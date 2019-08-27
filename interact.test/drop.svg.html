@@ -5,28 +5,20 @@
   <title>Test Rough Create + Drag n' Drop</title>
   <!-- inali.dev - interact-->
   <style media="screen">
-
+:root {
+  --color-obj: #0169B1;
+  --color-obj-dropped: #8BBE42;
+  --color-area: #86378B;
+  --color-area-active: #D63A87;
+  /* --color-: #F7D648; */
+}
   body {
     display: flex;
     height: 100vh;
     width: 100vw;
     margin: 0;
   }
-  .zona {
-    background-color: purple;
-    height: 200px;
-    width: 200px;
-    color: white;
-    border-radius: 10px;
-    padding: 1%;
-    position: fixed;
-    touch-action: none;
-    user-select: none;
-    text-align: center;
-    font-size: 11px;
-    -webkit-transform: translate(0%, 0%);
-    transform: translate(0%, 0%);
-  }
+
   .contenido {
     height: 100%;
     width: 100%;
@@ -40,6 +32,10 @@
   .dragall {
     height: 200px;
     width: 200px;
+    z-index: 100;
+  }
+  .dragall g g use path {
+    fill: var(--color-obj) !important;
   }
   .drop-1 {
     top: 32px;
@@ -143,6 +139,9 @@ viewBox="179.84337349397592 85.86746987951798 249.78313253012053 294.36144578313
 
 </div>
 <!-- draggables -->
+<!-- 
+-->
+<!--  -->
   <div class="zona_linguistica">
 
     <!-- circulo -->
@@ -178,7 +177,7 @@ viewBox="179.84337349397592 85.86746987951798 249.78313253012053 294.36144578313
     </g>
   </g>
 </svg>
-<!-- ireglular -->
+<!-- irregular -->
 <svg id="svg-irregular-drag" class="dragall" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
 preserveAspectRatio="xMidYMid meet"
 viewBox="206.34939759036146 65.38554216867462 270.26506024096386 293.15662650602405" width="266.27" height="289.16">
@@ -225,7 +224,11 @@ viewBox="179.84337349397592 85.86746987951798 249.78313253012053 294.36144578313
 (//ready
   function($) {
     Drag()
-    Drop()
+    configurarDrop("#svg-triangulo-area", "#svg-triangulo-drag" )
+    configurarDrop("#svg-circulo-area", "#svg-circulo-drag" )
+    configurarDrop("#svg-cuadrado-area", "#svg-cuadrado-drag" )
+    configurarDrop("#svg-irregular-area", "#svg-irregular-drag" )
+
   }()
 )//fin ready
 
@@ -249,7 +252,17 @@ function Drag() {
 }
 
 function dragMoveListener (event) {
-  var target = event.target
+  
+  let target = event.target//svg
+  let targetPath = document.querySelector('#' + target.id).querySelector('path')
+  let areaPath = document.querySelector('#' + target.id).querySelector('path')
+  let areaTxt = target.id
+console.log(areaTxt.match(/\.(.*?)\drag/i)[1]);
+
+
+  targetPath.style.fill = 'white'
+  
+  
   // keep the dragged position in the data-x/data-y attributes
   var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
   var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
@@ -264,13 +277,16 @@ function dragMoveListener (event) {
   target.setAttribute('data-y', y)
 }
 
-function Drop() {
+function configurarDrop(interactObj, acceptObj) {
+  
+  let path = '#' + document.querySelector(acceptObj).querySelector('path').id
+  let pathObj = document.querySelector(acceptObj).querySelector('path')
+  let pathArea =  document.querySelector(interactObj).querySelector('path')
+ 
+  // pathObj.style.fill = '0169B1'
 
-  let path = document.querySelector('#triangulo-drag')
-  let dropPath = document.querySelector('#svg-triangulo-area')
-
-  interact("#svg-triangulo-area").dropzone({
-    accept: "#svg-triangulo-drag",
+  interact(interactObj).dropzone({
+    accept: acceptObj,
     // Requiere el 15% del elemento para ejercer el 'drop'
     overlap: 0.15,
     // Eventos relacionados al 'drop':
@@ -279,17 +295,20 @@ function Drop() {
     },
     //al entrar en zona de 'drop'
     ondragenter: (event) => {
+      console.log(pathArea);
+      
       var dropzone = event.target
       var elemento = event.relatedTarget
-      dropzone.classList.add('drop-target')
+      //dropzone.classList.add('drop-target')
+      pathArea.style.fill = 'red' 
     },
     //al soltarlo dentro de la zona de 'drop'
     ondrop: (event) => {
       let dropzone = event.target
       let svg = event.relatedTarget
-      path.style.fill = 'gray'
+      pathObj.style.fill = 'gray'
       // posiciona elemento
-      console.log(dropzone.offsetLeft + " : " + dropzone.offsetTop);
+      //console.log(dropzone.offsetLeft + " : " + dropzone.offsetTop);
       svg.style.webkitTransform =
       svg.style.transform =
       'translate(' + dropzone.offsetLeft + 'px, ' + dropzone.offsetTop + 'px)'
@@ -300,8 +319,7 @@ function Drop() {
       let dropzone = event.target
       let elemento = event.relatedTarget
       dropzone.classList.remove('drop-target')//quita color de dropzone
-      path.style.background = 'purple'
-      path.style.borderRadius = '5px'
+      pathArea.style.fill = 'lime'
     },
     // Al dejar fuera de la zona de 'drop'
     ondropdeactivate: (event) => {
