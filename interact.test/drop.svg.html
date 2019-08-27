@@ -229,11 +229,17 @@ const colorAreaActive = '#D63A87';
   function($) {
 
     // posicion inicial arrastrables
-    // let initpos = document.querySelector('.dragall')
-    // // initpos.style.webkitTransform =
-    // // initpos.style.transform =
-    // // 'translate(200%, 200%)'
-    // // console.log(initpos.style.transform);
+    // let initpos = document.querySelectorAll('.dragall')
+    // initpos.forEach(item=>{
+    //   item.style.webkitTransform =
+    //   item.style.transform =
+    //   'translate(50%, 50%)'
+    // })
+    // color inicial a contenedores
+    let colorea = document.querySelectorAll('.dropall')
+    colorea.forEach(item=>{
+      item.querySelector('path').style.fill = colorArea
+    })
 
     // inicializa todos los arrastrables
     Drag()
@@ -256,7 +262,7 @@ function Drag() {
     modifiers: [
       interact.modifiers.restrictRect({
         restriction: 'body',
-        endOnly: true
+        endOnly: true,
       })
     ],
     // autoScroll: true,
@@ -272,7 +278,6 @@ function dragMoveListener(event) {
 
   let target = event.target//svg
   let targetPath = document.querySelector('#' + target.id).querySelector('path')
-  targetPath.style.fill = colorAreaActive
 
   // aplica los valores en los atributos data-
   var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
@@ -293,12 +298,6 @@ function configurarDrop(interactObj, acceptObj) {
   const pathObj = document.querySelector(acceptObj).querySelector('path')
   const contObj = document.querySelector(interactObj)
 
-
-  // color inicial a contenedores
-  let colorea = document.querySelectorAll('.dropall')
-  colorea.forEach(item=>{
-    item.querySelector('path').style.fill = colorArea
-  })
   pathObj.style.fill = colorObj
   interact(interactObj).dropzone({
     accept: acceptObj,
@@ -307,6 +306,7 @@ function configurarDrop(interactObj, acceptObj) {
     // Eventos relacionados al 'drop':
     ondropactivate: (event) => {
       event.target.querySelector('path').style.fill = colorAreaActive
+      event.relatedTarget.querySelector('path').style.fill = colorAreaActive
     },
     //al entrar en zona de 'drop'
     ondragenter: (event) => {
@@ -316,7 +316,7 @@ function configurarDrop(interactObj, acceptObj) {
     ondrop: (event) => {
       let dropzone = event.target.getBoundingClientRect()
       pathObj.style.fill = 'gray'
-
+      // snap
       obj.style.webkitTransform =
       obj.style.transform =
       'translate(' + dropzone.left + 'px, ' + dropzone.top    + 'px)'
