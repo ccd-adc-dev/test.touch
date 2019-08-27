@@ -5,13 +5,13 @@
   <title>Test Rough Create + Drag n' Drop</title>
   <!-- inali.dev - interact-->
   <style media="screen">
-:root {
-  --color-obj: #0169B1;
-  --color-obj-dropped: #8BBE42;
-  --color-area: #86378B;
-  --color-area-active: #D63A87;
-  /* --color-: #F7D648; */
-}
+  :root {
+    --color-obj: #0169B1;
+    --color-obj-dropped: #8BBE42;
+    --color-area: #86378B;
+    --color-area-active: #D63A87;
+    /* --color-: #F7D648; */
+  }
   body {
     display: flex;
     height: 100vh;
@@ -30,36 +30,24 @@
     width: 200px;
   }
   .dragall {
-    height: 200px;
-    width: 200px;
+    height: 220px;
     z-index: 100;
   }
-  .dragall g g use path {
-    fill: var(--color-obj) !important;
-  }
   .drop-1 {
-    top: 32px;
-    left: 32px;
+    top: 16px;
+    left: 16px;
   }
   .drop-2 {
-    top: 32px;
-    right: 32px;
+    top: 16px;
+    right: 16px;
   }
   .drop-3 {
-    bottom: 32px;
-    left: 32px;
+    bottom: 16px;
+    left: 16px;
   }
   .drop-4 {
-    bottom: 32px;
-    right: 32px;
-  }
-
-  /*  */
-  .drop-active {
-    border-color: pink;
-  }
-  .drop-target {
-    background-color: lime;
+    bottom: 16px;
+    right: 16px;
   }
   /*  */
   </style>
@@ -139,43 +127,43 @@ viewBox="179.84337349397592 85.86746987951798 249.78313253012053 294.36144578313
 
 </div>
 <!-- draggables -->
-<!-- 
+<!--
 -->
 <!--  -->
-  <div class="zona_linguistica">
+<div class="zona_linguistica">
 
-    <!-- circulo -->
-    <svg id="svg-circulo-drag" class="dragall" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-    preserveAspectRatio="xMidYMid meet"
-    viewBox="178.6385542168675 77.43373493975895 357.0120481927711 357.01204819277126" width="353.01" height="353.01">
-    <defs>
-      <path
-      d="M532.65 254.94C532.65 352.36 453.56 431.45 356.14 431.45C258.73 431.45 179.64 352.36 179.64 254.94C179.64 157.52 258.73 78.43 356.14 78.43C453.56 78.43 532.65 157.52 532.65 254.94Z"
-      id="circulo-drag"></path>
-    </defs>
-    <g>
-      <g>
-        <use xlink:href="#circulo-drag" opacity="1" fill="#651e48" fill-opacity="1"></use>
-      </g>
-    </g>
-  </svg>
-
-  <!-- cuadrado -->
-  <svg id="svg-cuadrado-drag" class="dragall" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  <!-- circulo -->
+  <svg id="svg-circulo-drag" class="dragall" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
   preserveAspectRatio="xMidYMid meet"
-  viewBox="111.1686746987952 78.63855421686739 387.13253012048193 383.51807228915663" width="383.13" height="379.52">
+  viewBox="178.6385542168675 77.43373493975895 357.0120481927711 357.01204819277126" width="353.01" height="353.01">
   <defs>
-    <path d="M112.17 79.64L495.3 79.64L495.3 459.16L112.17 459.16L112.17 79.64Z" id="cuadrado-drag"></path>
+    <path
+    d="M532.65 254.94C532.65 352.36 453.56 431.45 356.14 431.45C258.73 431.45 179.64 352.36 179.64 254.94C179.64 157.52 258.73 78.43 356.14 78.43C453.56 78.43 532.65 157.52 532.65 254.94Z"
+    id="circulo-drag"></path>
   </defs>
   <g>
     <g>
-      <use xlink:href="#cuadrado-drag" opacity="1" fill="#1d5299" fill-opacity="1"></use>
-      <g>
-        <use xlink:href="#cuadrado-drag" opacity="1" fill-opacity="0" stroke="#6c40d2" stroke-width="0"
-        stroke-opacity="1"></use>
-      </g>
+      <use xlink:href="#circulo-drag" opacity="1" fill="#651e48" fill-opacity="1"></use>
     </g>
   </g>
+</svg>
+
+<!-- cuadrado -->
+<svg id="svg-cuadrado-drag" class="dragall" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+preserveAspectRatio="xMidYMid meet"
+viewBox="111.1686746987952 78.63855421686739 387.13253012048193 383.51807228915663" width="383.13" height="379.52">
+<defs>
+  <path d="M112.17 79.64L495.3 79.64L495.3 459.16L112.17 459.16L112.17 79.64Z" id="cuadrado-drag"></path>
+</defs>
+<g>
+  <g>
+    <use xlink:href="#cuadrado-drag" opacity="1" fill="#1d5299" fill-opacity="1"></use>
+    <g>
+      <use xlink:href="#cuadrado-drag" opacity="1" fill-opacity="0" stroke="#6c40d2" stroke-width="0"
+      stroke-opacity="1"></use>
+    </g>
+  </g>
+</g>
 </svg>
 <!-- irregular -->
 <svg id="svg-irregular-drag" class="dragall" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -219,8 +207,6 @@ viewBox="179.84337349397592 85.86746987951798 249.78313253012053 294.36144578313
 
 <script>
 //
-// let x = console.log(document.querySelector('#chueco'))
-// cargador.onload = () => {x}
 (//ready
   function($) {
     Drag()
@@ -245,24 +231,21 @@ function Drag() {
     ],
     // autoScroll: true,
     onmove: dragMoveListener,
-    onend: (e) => {
-      console.log('dragEnd')
+    onend: (event) => {
+      event.target.querySelector('path').style.fill = "blue"
+
     }
   })
 }
 
 function dragMoveListener (event) {
-  
+
   let target = event.target//svg
   let targetPath = document.querySelector('#' + target.id).querySelector('path')
   let areaPath = document.querySelector('#' + target.id).querySelector('path')
-  let areaTxt = target.id
-console.log(areaTxt.match(/\.(.*?)\drag/i)[1]);
+  // let areaTxt = target.id
+  targetPath.style.fill = 'pink'
 
-
-  targetPath.style.fill = 'white'
-  
-  
   // keep the dragged position in the data-x/data-y attributes
   var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
   var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
@@ -278,11 +261,11 @@ console.log(areaTxt.match(/\.(.*?)\drag/i)[1]);
 }
 
 function configurarDrop(interactObj, acceptObj) {
-  
-  let path = '#' + document.querySelector(acceptObj).querySelector('path').id
-  let pathObj = document.querySelector(acceptObj).querySelector('path')
-  let pathArea =  document.querySelector(interactObj).querySelector('path')
- 
+
+
+  const path = '#' + document.querySelector(acceptObj).querySelector('path').id
+  const pathObj = document.querySelector(acceptObj).querySelector('path')
+  const pathArea =  document.querySelector(interactObj).querySelector('path')
   // pathObj.style.fill = '0169B1'
 
   interact(interactObj).dropzone({
@@ -291,40 +274,29 @@ function configurarDrop(interactObj, acceptObj) {
     overlap: 0.15,
     // Eventos relacionados al 'drop':
     ondropactivate: (event) => {
-      event.target.classList.add('drop-active')
+      event.target.querySelector('path').style.fill = "pink"
     },
     //al entrar en zona de 'drop'
     ondragenter: (event) => {
-      console.log(pathArea);
-      
-      var dropzone = event.target
-      var elemento = event.relatedTarget
-      //dropzone.classList.add('drop-target')
-      pathArea.style.fill = 'red' 
+      pathArea.style.fill = 'lime'
     },
     //al soltarlo dentro de la zona de 'drop'
     ondrop: (event) => {
-      let dropzone = event.target
-      let svg = event.relatedTarget
+      let dropzone = event.relatedTarget
       pathObj.style.fill = 'gray'
-      // posiciona elemento
-      //console.log(dropzone.offsetLeft + " : " + dropzone.offsetTop);
-      svg.style.webkitTransform =
-      svg.style.transform =
+      pathObj.style.webkitTransform =
+      pathObj.style.transform =
       'translate(' + dropzone.offsetLeft + 'px, ' + dropzone.offsetTop + 'px)'
-
+      dropzone.style.fill = 'lightgray'
     },
     //Al salir del 'dropzone'
     ondragleave: (event) => {
-      let dropzone = event.target
       let elemento = event.relatedTarget
-      dropzone.classList.remove('drop-target')//quita color de dropzone
-      pathArea.style.fill = 'lime'
+      pathArea.style.fill = 'pink'
     },
     // Al dejar fuera de la zona de 'drop'
     ondropdeactivate: (event) => {
-      event.target.classList.remove('drop-active')
-      event.target.classList.remove('drop-target')
+      // event.target.querySelector('path').style.fill = "blue"
     }
   })
 }
