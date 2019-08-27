@@ -30,7 +30,7 @@
     width: 150px;
   }
   .dragall {
-    position: fixed;
+    /* position: fixed; */
     height: 150px;
     width: 150px;
     z-index: 100;
@@ -231,14 +231,14 @@ const colorAreaActive = '#D63A87';
     // posicion inicial arrastrables
     // let initpos = document.querySelectorAll('.dragall')
     // initpos.forEach(item=>{
-    //   item.style.webkitTransform =
-    //   item.style.transform =
-    //   'translate(50%, 50%)'
     // })
     // color inicial a contenedores
     let colorea = document.querySelectorAll('.dropall')
     colorea.forEach(item=>{
       item.querySelector('path').style.fill = colorArea
+      item.style.webkitTransform =
+      item.style.transform =
+      'translate(50%, 50%)'
     })
 
     // inicializa todos los arrastrables
@@ -287,7 +287,7 @@ function dragMoveListener(event) {
   target.style.transform =
   'translate(' + x + 'px, ' + y + 'px)'
 
-  // update the posiion attributes
+  // update the position attributes
   target.setAttribute('data-x', x)
   target.setAttribute('data-y', y)
 }
