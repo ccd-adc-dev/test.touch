@@ -30,7 +30,7 @@
     width: 150px;
   }
   .dragall {
-    /* position: fixed; */
+    position: fixed;
     height: 150px;
     width: 150px;
     z-index: 100;
@@ -39,8 +39,6 @@
   #zonas_linguisticas {
     height: 100vh;
     width: 100vw;
-    position: fixed;
-    z-index: 1
   }
   #zonas_linguisticas svg path {
     height: 150px;
@@ -231,14 +229,14 @@ const colorAreaActive = '#D63A87';
     // posicion inicial arrastrables
     // let initpos = document.querySelectorAll('.dragall')
     // initpos.forEach(item=>{
+    //   item.style.webkitTransform =
+    //   item.style.transform =
+    //   'translate(50%, 50%)'
     // })
     // color inicial a contenedores
     let colorea = document.querySelectorAll('.dropall')
     colorea.forEach(item=>{
       item.querySelector('path').style.fill = colorArea
-      item.style.webkitTransform =
-      item.style.transform =
-      'translate(50%, 50%)'
     })
 
     // inicializa todos los arrastrables
@@ -295,10 +293,11 @@ function dragMoveListener(event) {
 function configurarDrop(interactObj, acceptObj) {
 
   const obj = document.querySelector(acceptObj)
-  const pathObj = document.querySelector(acceptObj).querySelector('path')
   const contObj = document.querySelector(interactObj)
+  const pathObj = document.querySelector(acceptObj).querySelector('path')
 
   pathObj.style.fill = colorObj
+
   interact(interactObj).dropzone({
     accept: acceptObj,
     // Requiere el 15% del elemento para ejercer el 'drop'
@@ -317,9 +316,11 @@ function configurarDrop(interactObj, acceptObj) {
       let dropzone = event.target.getBoundingClientRect()
       pathObj.style.fill = 'gray'
       // snap
+      // console.log(dropzone.getAttribute('data-x'), dropzone.getAttribute('data-y'));
+      console.log(dropzone);
       obj.style.webkitTransform =
       obj.style.transform =
-      'translate(' + dropzone.left + 'px, ' + dropzone.top    + 'px)'
+      'translate(' + dropzone.x + 'px, ' + dropzone.y    + 'px)'
 
     },
     //Al salir del 'dropzone'
