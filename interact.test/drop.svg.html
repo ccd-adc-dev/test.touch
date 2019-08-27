@@ -227,7 +227,18 @@ const colorArea = '#86378B';
 const colorAreaActive = '#D63A87';
 (//ready
   function($) {
+
+    // posicion inicial arrastrables
+    let initpos = document.querySelector('.dragall')
+    initpos.style.webkitTransform =
+    initpos.style.transform =
+    'translate(200%, 200%)'
+    console.log(initpos.style.transform);
+
+    // inicializa todos los arrastrables
     Drag()
+
+    // instancias
     configurarDrop("#svg-triangulo-area", "#svg-triangulo-drag" )
     configurarDrop("#svg-circulo-area", "#svg-circulo-drag" )
     configurarDrop("#svg-cuadrado-area", "#svg-cuadrado-drag" )
@@ -262,10 +273,10 @@ function dragMoveListener(event) {
   let target = event.target//svg
   let targetPath = document.querySelector('#' + target.id).querySelector('path')
   targetPath.style.fill = colorAreaActive
-  // keep the dragged position in the data-x/data-y attributes
+
+  // aplica los valores en los atributos data-
   var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
   var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
-
   // translate the element
   target.style.webkitTransform =
   target.style.transform =
@@ -281,7 +292,9 @@ function configurarDrop(interactObj, acceptObj) {
   const obj = document.querySelector(acceptObj)
   const pathObj = document.querySelector(acceptObj).querySelector('path')
   const contObj = document.querySelector(interactObj)
-  // color default a contenedores
+
+
+  // color inicial a contenedores
   let colorea = document.querySelectorAll('.dropall')
   colorea.forEach(item=>{
     item.querySelector('path').style.fill = colorArea
@@ -303,14 +316,10 @@ function configurarDrop(interactObj, acceptObj) {
     ondrop: (event) => {
       let dropzone = event.target.getBoundingClientRect()
       pathObj.style.fill = 'gray'
-// DEBUG: snap
-      setTimeout(() => {
-        console.log(dropzone)
-        console.log(obj)
-        obj.style.webkitTransform =
-        obj.style.transform =
-        'translate(' + dropzone.left + 'px, ' + dropzone.top    + 'px)'
-      },500)
+
+      obj.style.webkitTransform =
+      obj.style.transform =
+      'translate(' + dropzone.left + 'px, ' + dropzone.top    + 'px)'
 
     },
     //Al salir del 'dropzone'
