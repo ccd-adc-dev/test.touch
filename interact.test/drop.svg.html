@@ -30,7 +30,7 @@
     width: 150px;
   }
   .dragall {
-    /* position: fixed; */
+    position: fixed;
     height: 150px;
     width: 150px;
     z-index: 100;
@@ -157,7 +157,7 @@ viewBox="179.84337349397592 85.86746987951798 249.78313253012053 294.36144578313
   </defs>
   <g>
     <g>
-      <use xlink:href="#circulo-drag" opacity="1" fill="#651e48" fill-opacity="1"></use>
+      <use xlink:href="#circulo-drag" opacity="1" width="150" height="150" fill-opacity="1"></use>
     </g>
   </g>
 </svg>
@@ -303,13 +303,14 @@ function configurarDrop(interactObj, acceptObj) {
     ondrop: (event) => {
       let dropzone = event.target.getBoundingClientRect()
       pathObj.style.fill = 'gray'
-// DEBUG: snap 
-      // setTimeout(() => {
-      //   console.log(dropzone)
-      //   obj.style.webkitTransform =
-      //   obj.style.transform =
-      //   'translate(' + dropzone.y + 'px, ' + dropzone.x    + 'px)'
-      // },1000)
+// DEBUG: snap
+      setTimeout(() => {
+        console.log(dropzone)
+        console.log(obj)
+        obj.style.webkitTransform =
+        obj.style.transform =
+        'translate(' + dropzone.left + 'px, ' + dropzone.top    + 'px)'
+      },500)
 
     },
     //Al salir del 'dropzone'
