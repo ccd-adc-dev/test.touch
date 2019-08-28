@@ -262,77 +262,77 @@ function Drag() {
         restriction: 'body',
         endOnly: true,
       })
-      ],
-      // autoScroll: true,
-      onmove: dragMoveListener,
-      onend: (event) => {
-        // event.target.querySelector('path').style.fill = colorObj
+    ],
+    // autoScroll: true,
+    onmove: dragMoveListener,
+    onend: (event) => {
+      console.log("Fin drag");
+    }
+  })
+}
 
-      }
-    })
-  }
+function dragMoveListener(event) {
 
-  function dragMoveListener(event) {
+  let target = event.target//svg
 
-    let target = event.target//svg
+  // aplica los valores en los atributos data-
+  var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
+  var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+  // translate the element
+  target.style.webkitTransform =
+  target.style.transform =
+  'translate(' + x + 'px, ' + y + 'px)'
 
-    // aplica los valores en los atributos data-
-    var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
-    var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
-    // translate the element
-    target.style.webkitTransform =
-    target.style.transform =
-    'translate(' + x + 'px, ' + y + 'px)'
+  // update the position attributes
+  target.setAttribute('data-x', x)
+  target.setAttribute('data-y', y)
+}
 
-    // update the position attributes
-    target.setAttribute('data-x', x)
-    target.setAttribute('data-y', y)
-  }
+function configurarDrop(interactObj, acceptObj) {
 
-  function configurarDrop(interactObj, acceptObj) {
+  const obj = document.querySelector(acceptObj)
+  const contObj = document.querySelector(interactObj)
+  const pathObj = document.querySelector(acceptObj).querySelector('path')
 
-    const obj = document.querySelector(acceptObj)
-    const contObj = document.querySelector(interactObj)
-    const pathObj = document.querySelector(acceptObj).querySelector('path')
+  pathObj.style.fill = colorObj
 
-    pathObj.style.fill = colorObj
+  interact(interactObj).dropzone({
+    accept: acceptObj,
+    // Requiere el 15% del elemento para ejercer el 'drop'
+    overlap: 0.15,
+    // Eventos relacionados al 'drop':
+    ondropactivate: (event) => {
+      event.target.querySelector('path').style.fill = colorAreaActive
+      event.relatedTarget.querySelector('path').style.fill = colorAreaActive
+    },
+    //al entrar en zona de 'drop'
+    ondragenter: (event) => {
+      event.target.querySelector('path').style.fill = colorObjDropped
+    },
+    //al soltarlo dentro de la zona de 'drop'
+    ondrop: (event) => {
+      let dropzone = event.target.getBoundingClientRect()
+      // // snap
+      obj.style.webkitTransform =
+      obj.style.transform =
+      'translate(' + dropzone.x + 'px, ' + dropzone.y    + 'px)'
+      //
+      obj.setAttribute('data-x', dropzone.x)
+      obj.setAttribute('data-y', dropzone.y)
 
-    interact(interactObj).dropzone({
-      accept: acceptObj,
-      // Requiere el 15% del elemento para ejercer el 'drop'
-      overlap: 0.15,
-      // Eventos relacionados al 'drop':
-      ondropactivate: (event) => {
-        // event.target.querySelector('path').style.fill = colorAreaActive
-        // event.relatedTarget.querySelector('path').style.fill = colorAreaActive
-      },
-      //al entrar en zona de 'drop'
-      ondragenter: (event) => {
-        // event.target.querySelector('path').style.fill = colorObjDropped
-      },
-      //al soltarlo dentro de la zona de 'drop'
-      ondrop: (event) => {
-        let dropzone = event.target.getBoundingClientRect()
-        // pathObj.style.fill = 'gray'
-        // // snap
-        // obj.style.webkitTransform =
-        // obj.style.transform =
-        // 'translate(' + dropzone.x + 'px, ' + dropzone.y    + 'px)'
-        //
-        // obj.setAttribute('data-x', dropzone.x)
-        // obj.setAttribute('data-y', dropzone.y)
+    },
+    //Al salir del 'dropzone'
+    ondragleave: (event) => {
+      event.target.querySelector('path').style.fill = colorAreaActive
+    },
+    // Al dejar fuera de la zona de 'drop'
+    ondropdeactivate: (event) => {
+      event.target.querySelector('path').style.fill = colorArea
+      event.relatedTarget.querySelector('path').style.fill = colorObj
 
-      },
-      //Al salir del 'dropzone'
-      ondragleave: (event) => {
-        // event.target.querySelector('path').style.fill = colorAreaActive
-      },
-      // Al dejar fuera de la zona de 'drop'
-      ondropdeactivate: (event) => {
-        // event.target.querySelector('path').style.fill = colorArea
-      }
-    })
-  }
+    }
+  })
+}
 
 </script>
 </html>
