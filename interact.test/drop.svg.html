@@ -303,21 +303,24 @@ function Drag() {
       overlap: 0.15,
       // Eventos relacionados al 'drop':
       ondropactivate: (event) => {
-        event.target.querySelector('path').style.fill = colorAreaActive
-        event.relatedTarget.querySelector('path').style.fill = colorAreaActive
+        // event.target.querySelector('path').style.fill = colorAreaActive
+        // event.relatedTarget.querySelector('path').style.fill = colorAreaActive
       },
       //al entrar en zona de 'drop'
       ondragenter: (event) => {
-        event.target.querySelector('path').style.fill = colorObjDropped
+        // event.target.querySelector('path').style.fill = colorObjDropped
       },
       //al soltarlo dentro de la zona de 'drop'
       ondrop: (event) => {
         let dropzone = event.target.getBoundingClientRect()
-        pathObj.style.fill = 'gray'
-        // snap
-        obj.style.webkitTransform =
-        obj.style.transform =
-        'translate(' + dropzone.x + 'px, ' + dropzone.y    + 'px)'
+        // pathObj.style.fill = 'gray'
+        // // snap
+        // obj.style.webkitTransform =
+        // obj.style.transform =
+        // 'translate(' + dropzone.x + 'px, ' + dropzone.y    + 'px)'
+        //
+        // obj.setAttribute('data-x', dropzone.x)
+        // obj.setAttribute('data-y', dropzone.y)
 
       },
       //Al salir del 'dropzone'
@@ -326,7 +329,7 @@ function Drag() {
       },
       // Al dejar fuera de la zona de 'drop'
       ondropdeactivate: (event) => {
-        event.target.querySelector('path').style.fill = colorArea
+        // event.target.querySelector('path').style.fill = colorArea
       }
     })
   }
