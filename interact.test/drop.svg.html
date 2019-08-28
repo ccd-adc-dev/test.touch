@@ -63,7 +63,8 @@
 
   /*  */
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/interactjs@1.5.4/dist/interact.min.js"></script>
 </head>
 <body>
   <div class="contenedores">
@@ -318,6 +319,8 @@ function configurarDrop(interactObj, acceptObj) {
     ondropactivate: (event) => {
       event.target.querySelector('path').style.fill = colorAreaActive
       event.relatedTarget.querySelector('path').style.fill = colorAreaActive
+      //
+      event.relatedTarget.style.backgroundColor = colorAreaActive
     },
     //al entrar en zona de 'drop'
     ondragenter: (event) => {
