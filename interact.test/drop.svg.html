@@ -301,31 +301,10 @@ function Drag() {
       accept: acceptObj,
       // Requiere el 15% del elemento para ejercer el 'drop'
       overlap: 0.15,
-      modifiers: [
-        interact.modifiers.snap({
-          targets: [
-            function (
-              // the x and y page coordinates,
-              x, y,
-              // the current interaction
-              interaction,
-              // the offset information with relativePoint if set
-              { x: offsetX, y: offsetY, relativePoint, index: relativePointIndex },
-              // the index of this function in the options.targets array
-              index) {
-                return {
-                  x: x,
-                  y: (75 + 50 * Math.sin(x * 0.24)),
-                  range: 40,
-                }
-              }
-            ]
-          })
-      ],
       // Eventos relacionados al 'drop':
       ondropactivate: (event) => {
-        event.target.querySelector('path').style.fill = colorAreaActive
-        event.relatedTarget.querySelector('path').style.fill = colorAreaActive
+        // event.target.querySelector('path').style.fill = colorAreaActive
+        // event.relatedTarget.querySelector('path').style.fill = colorAreaActive
       },
       //al entrar en zona de 'drop'
       ondragenter: (event) => {
@@ -336,8 +315,6 @@ function Drag() {
         let dropzone = event.target.getBoundingClientRect()
         pathObj.style.fill = 'gray'
         // snap
-        // console.log(dropzone.getAttribute('data-x'), dropzone.getAttribute('data-y'));
-        // console.log(dropzone);
         obj.style.webkitTransform =
         obj.style.transform =
         'translate(' + dropzone.x + 'px, ' + dropzone.y    + 'px)'
