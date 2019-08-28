@@ -303,8 +303,8 @@ function Drag() {
       overlap: 0.15,
       // Eventos relacionados al 'drop':
       ondropactivate: (event) => {
-        // event.target.querySelector('path').style.fill = colorAreaActive
-        // event.relatedTarget.querySelector('path').style.fill = colorAreaActive
+        event.target.querySelector('path').style.fill = colorAreaActive
+        event.relatedTarget.querySelector('path').style.fill = colorAreaActive
       },
       //al entrar en zona de 'drop'
       ondragenter: (event) => {
@@ -322,7 +322,7 @@ function Drag() {
       },
       //Al salir del 'dropzone'
       ondragleave: (event) => {
-        event.target.querySelector('path').style.fill = colorAreaActive
+        // event.target.querySelector('path').style.fill = colorAreaActive
       },
       // Al dejar fuera de la zona de 'drop'
       ondropdeactivate: (event) => {
