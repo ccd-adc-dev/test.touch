@@ -23,8 +23,6 @@
     width: 100%;
   }
   .dropall {
-    cursor: pointer;
-    overflow: visible;
     position: fixed;
     height: 150px;
     width: 150px;
@@ -34,7 +32,6 @@
     height: 150px;
     width: 150px;
     z-index: 100;
-    fill: var(--color-obj) !important;
   }
   #zonas_linguisticas {
     height: 100vh;
@@ -60,13 +57,21 @@
     bottom: 64px;
     right: 64px;
   }
+  /*  */
+  .info {
+    text-align: center;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
 
   /*  */
   </style>
-  <!-- <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script> -->
   <script src="https://cdn.jsdelivr.net/npm/interactjs@1.5.4/dist/interact.min.js"></script>
 </head>
 <body>
+  <h2 class="info"></h2>
   <div class="contenedores">
 
     <!-- circulo -->
@@ -213,21 +218,6 @@ viewBox="179.84337349397592 85.86746987951798 249.78313253012053 294.36144578313
 </g>
 </svg>
 
-<!--  -->
-<!-- DEBUG:  -->
-<style media="screen">
-  #debug {
-    height: 400px;
-    width: 400px;
-    border-radius: 42px;
-    background-color: red;
-  }
-</style>
-<div id="debug" class="dragall">
-FAAAAAAAACK!
-</div>
-
-
 </div>
 
 </body>
@@ -240,14 +230,6 @@ const colorArea = '#86378B';
 const colorAreaActive = '#D63A87';
 (//ready
   function($) {
-
-    // posicion inicial arrastrables
-    // let initpos = document.querySelectorAll('.dragall')
-    // initpos.forEach(item=>{
-    //   item.style.webkitTransform =
-    //   item.style.transform =
-    //   'translate(50%, 50%)'
-    // })
     // color inicial a contenedores
     let colorea = document.querySelectorAll('.dropall')
     colorea.forEach(item=>{
@@ -256,13 +238,11 @@ const colorAreaActive = '#D63A87';
 
     // inicializa todos los arrastrables
     Drag()
-
     // instancias
     configurarDrop("#svg-triangulo-area", "#svg-triangulo-drag" )
     configurarDrop("#svg-circulo-area", "#svg-circulo-drag" )
     configurarDrop("#svg-cuadrado-area", "#svg-cuadrado-drag" )
     configurarDrop("#svg-irregular-area", "#svg-irregular-drag" )
-
 
   }()
 )//fin ready
@@ -311,6 +291,9 @@ function configurarDrop(interactObj, acceptObj) {
 
   pathObj.style.fill = colorObj
 
+//
+const info = document.querySelector('.info')
+//
   interact(interactObj).dropzone({
     accept: acceptObj,
     // Requiere el 15% del elemento para ejercer el 'drop'
@@ -319,12 +302,12 @@ function configurarDrop(interactObj, acceptObj) {
     ondropactivate: (event) => {
       event.target.querySelector('path').style.fill = colorAreaActive
       event.relatedTarget.querySelector('path').style.fill = colorAreaActive
-      //
-      event.relatedTarget.style.backgroundColor = colorAreaActive
+      info.innerHTML = "DEBUG: ondropactive"
     },
     //al entrar en zona de 'drop'
     ondragenter: (event) => {
       event.target.querySelector('path').style.fill = colorObjDropped
+      info.innerHTML = "DEBUG: ondragenter"
     },
     //al soltarlo dentro de la zona de 'drop'
     ondrop: (event) => {
@@ -337,18 +320,21 @@ function configurarDrop(interactObj, acceptObj) {
       obj.setAttribute('data-x', dropzone.x)
       obj.setAttribute('data-y', dropzone.y)
 
+      info.innerHTML = "DEBUG: ondrop"
     },
     //Al salir del 'dropzone'
     ondragleave: (event) => {
       event.target.querySelector('path').style.fill = colorAreaActive
+      info.innerHTML = "DEBUG: ondragleave"
     },
     // Al dejar fuera de la zona de 'drop'
     ondropdeactivate: (event) => {
       event.target.querySelector('path').style.fill = colorArea
       event.relatedTarget.querySelector('path').style.fill = colorObj
-
+      info.innerHTML = "DEBUG: ondropdeactivate"
     }
   })
+  //
 }
 
 </script>
