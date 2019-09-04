@@ -2,7 +2,8 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
-  <title>Test Rough Create + Drag n' Drop</title>
+  <title>Rough '<path>' Drag n' Drop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- inali.dev - interact-->
   <link rel="stylesheet" href="style.css">
   <style media="screen">
@@ -67,12 +68,12 @@
     left: 0;
   }
 
-/* DEBUG: */
-svg defs path {
-  height: 30px;
-  width: 30px;
-  fill: 30px;
-}
+  /* DEBUG: */
+  svg defs path {
+    height: 30px;
+    width: 30px;
+    fill: 30px;
+  }
   /*  */
   </style>
   <script src="https://cdn.jsdelivr.net/npm/interactjs@1.5.4/dist/interact.min.js"></script>
@@ -80,62 +81,65 @@ svg defs path {
 <body>
   <h2 class="info">STYLE PATHS</h2>
 
-<!-- debug svg -->
-<!-- <svg style="height:100vh;width:100vw;" class="dragall" id="svg" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-preserveAspectRatio="xMidYMid meet"
-viewBox="179.84337349397592 85.86746987951798 249.78313253012053 294.3614457831326" width="245.78" height="290.36">
-<defs>
+  <!-- debug svg -->
+  <!-- <svg style="height:100vh;width:100vw;" class="dragall" id="svg" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  preserveAspectRatio="xMidYMid meet"
+  viewBox="179.84337349397592 85.86746987951798 249.78313253012053 294.3614457831326" width="245.78" height="290.36">
+  <defs>
   <path id="triangulo-drag"  d="M426.63 374.82L180.84 377.23L300.12 86.87L426.63 374.82Z" ></path>
 </defs>
 <g>
-  <g>
-    <use xlink:href="#triangulo-drag" opacity="1" fill="red" ></use>
-  </g>
+<g>
+<use xlink:href="#triangulo-drag" opacity="1" fill="red" ></use>
+</g>
 </g>
 </svg> -->
 
 <!-- <svg width="325" height="325" class="dragall-child" xmlns="http://www.w3.org/2000/svg">
-  <path d="M 80 80
-           A 45 45, 0, 0, 0, 125 125
-           L 125 80
-           Z" fill="green"/>
-  <path d="M 230 80
-           A 45 45, 0, 1, 0, 275 125
-           L 275 80
-           Z" fill="red"/>
-  <path d="M 80 230
-           A 45 45, 0, 0, 1, 125 275
-           L 125 230
-           Z" fill="purple"/>
-  <path d="M 230 230
-           A 45 45, 0, 1, 1, 275 275
-           L 275 230
-           Z" fill="blue"/>
+<path d="M 80 80
+A 45 45, 0, 0, 0, 125 125
+L 125 80
+Z" fill="green"/>
+<path d="M 230 80
+A 45 45, 0, 1, 0, 275 125
+L 275 80
+Z" fill="red"/>
+<path d="M 80 230
+A 45 45, 0, 0, 1, 125 275
+L 125 230
+Z" fill="purple"/>
+<path d="M 230 230
+A 45 45, 0, 1, 1, 275 275
+L 275 230
+Z" fill="blue"/>
 </svg> -->
 
 <!-- <svg class="icon  icon--plus" viewBox="0 0 5 5" xmlns="http://www.w3.org/2000/svg">
-    <path
-    id="path-debug"
-    class="dragall path-debug"
-    d="M2 1 h1 v1 h1 v1 h-1 v1 h-1 v-1 h-1 v-1 h1 z"
-    style="fill: lightgreen;background-color:red;"
-    ></path>
+<path
+id="path-debug"
+class="dragall path-debug"
+d="M2 1 h1 v1 h1 v1 h-1 v1 h-1 v-1 h-1 v-1 h1 z"
+style="fill: lightgreen;background-color:red;"
+></path>
 </svg> -->
 
 <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 68 65">
-  <path fill="#1A374D" style="width:200px;" d="M42 27v-20c0-3.7-3.3-7-7-7s-7 3.3-7 7v21l12 15-7 15.7c14.5 13.9 35 2.8 35-13.7 0-13.3-13.4-21.8-26-18zm6 25c-3.9 0-7-3.1-7-7s3.1-7 7-7 7 3.1 7 7-3.1 7-7 7z"/>
-  <path d="M14 27v-20c0-3.7-3.3-7-7-7s-7 3.3-7 7v41c0 8.2 9.2 17 20 17s20-9.2 20-20c0-13.3-13.4-21.8-26-18zm6 25c-3.9 0-7-3.1-7-7s3.1-7 7-7 7 3.1 7 7-3.1 7-7 7z"/>
+<path fill="#1A374D" style="width:200px;" d="M42 27v-20c0-3.7-3.3-7-7-7s-7 3.3-7 7v21l12 15-7 15.7c14.5 13.9 35 2.8 35-13.7 0-13.3-13.4-21.8-26-18zm6 25c-3.9 0-7-3.1-7-7s3.1-7 7-7 7 3.1 7 7-3.1 7-7 7z"/>
+<path d="M14 27v-20c0-3.7-3.3-7-7-7s-7 3.3-7 7v41c0 8.2 9.2 17 20 17s20-9.2 20-20c0-13.3-13.4-21.8-26-18zm6 25c-3.9 0-7-3.1-7-7s3.1-7 7-7 7 3.1 7 7-3.1 7-7 7z"/>
 </svg> -->
 
 
-    <svg id="main-svg" xmlns="http://www.w3.org/2000/svg"
-    viewBox="-10 -10 150 150">
-      <rect class="dragall" x="0" y="0" width="30" height="20" fill="#aafaaa"/>
-      <rect class="dragall" x="4" y="5" width="8" height="10" fill="#007bff"/>
-      <rect class="dragall" x="18" y="5" width="8" height="10" fill="#888"/>
-      <path class="dragall" width="8" height="10" fill="#888" d="M42 27v-20c0-3.7-3.3-7-7-7s-7 3.3-7 7v21l12 15-7 15.7c14.5 13.9 35 2.8 35-13.7 0-13.3-13.4-21.8-26-18zm6 25c-3.9 0-7-3.1-7-7s3.1-7 7-7 7 3.1 7 7-3.1 7-7 7z"/>
-    </svg>
+<svg id="main-svg" xmlns="http://www.w3.org/2000/svg"
+viewBox="-10 -10 150 150">
+<rect class="dragall" x="0" y="0" width="30" height="20" fill="#aafaaa"/>
+<rect class="dragall" x="4" y="5" width="8" height="10" fill="#007bff"/>
+<rect class="dragall" x="18" y="5" width="8" height="10" fill="#888"/>
+<path class="dragall" width="8" height="10" fill="#888" d="M42 27v-20c0-3.7-3.3-7-7-7s-7 3.3-7 7v21l12 15-7 15.7c14.5 13.9 35 2.8 35-13.7 0-13.3-13.4-21.8-26-18zm6 25c-3.9 0-7-3.1-7-7s3.1-7 7-7 7 3.1 7 7-3.1 7-7 7z"/>
+</svg>
 
+<div class="dragall" style="height:300px;width:200px;background:red;color:whitesmoke;">
+  Soy Div n.n
+</div>
 
 <!-- debug svg -->
 </body>
@@ -189,14 +193,14 @@ function dragMoveListener(event) {
   let target = event.target//svg
 
   // aplica los valores en los atributos data-
-  var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
-  var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
-  // translate the element
+  var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx*0.2
+  var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy*0.2
+  // mueve el elemento
   target.style.webkitTransform =
   target.style.transform =
   'translate(' + x + 'px, ' + y + 'px)'
 
-  // update the position attributes
+  // actualiza sus atributos
   target.setAttribute('data-x', x)
   target.setAttribute('data-y', y)
 }
@@ -209,9 +213,9 @@ function configurarDrop(interactObj, acceptObj) {
 
   pathObj.style.fill = colorObj
 
-//
-const info = document.querySelector('.info')
-//
+  //
+  const info = document.querySelector('.info')
+  //
   interact(interactObj).dropzone({
     accept: acceptObj,
     // Requiere el 15% del elemento para ejercer el 'drop'
