@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Test Rough Create + Drag n' Drop</title>
+  <!-- inali.dev - interact-->
+  <style media="screen">
+  :root {
+    --color-obj: #0169B1;
+    --color-obj-dropped: #8BBE42;
+    --color-area: #86378B;
+    --color-area-active: #D63A87;
+    /* --color-: #F7D648; */
+  }
+  body {
+    /* display: flex; */
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+  }
+  .contenido {
+    height: 100%;
+    width: 100%;
+  }
+  .dropall {
+    position: fixed;
+    height: 150px;
+    width: 150px;
+  }
+  .dragall {
+    position: fixed;
+    height: 150px;
+    width: 150px;
+    z-index: 100;
+  }
+  #zonas_linguisticas {
+    height: 100vh;
+    width: 100vw;
+  }
+  #zonas_linguisticas svg path {
+    height: 150px;
+    width: 150px;
+  }
+  .drop-1 {
+    top: 64px;
+    left: 64px;
+  }
+  .drop-2 {
+    top: 64px;
+    right: 64px;
+  }
+  .drop-3 {
+    bottom: 64px;
+    left: 64px;
+  }
+  .drop-4 {
+    bottom: 64px;
+    right: 64px;
+  }
+  /*  */
+  .info {
+    text-align: center;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+
+/* DEBUG: */
+/* svg defs path {
+  height: 30px;
+  width: 30px;
+  fill: 30px;
+} */
+  /*  */
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/interactjs@1.5.4/dist/interact.min.js"></script>
+</head>
+<body>
+  <h2 class="info">STYLE PATHS</h2>
+<!--  -->
+<div style=background:gainsboro;width:300px;height:300px>
+<svg id="mySVG" width="300" height="300"  onmousedown="startDrag(evt)" onmousemove="drag(evt)" onmouseup="endDrag()">
+<circle style=cursor:move class="dragTarget" id="redCircle" cx="90" cy="80" r="30" fill="red" stroke="black" stroke-width="2" style="cursor:default" ></circle>
+<circle style=cursor:move class="dragTarget" id="orangeCircle" cx="200" cy="200" r="20" fill="orange" stroke="black" stroke-width="2" ></circle>
+<rect style=cursor:move transform="translate(100,100)scale(1.2,.8)" class="dragTarget" id="maroonRect" x="120" y="150" width="30" height="30" fill="maroon" stroke="black" stroke-width="2"></rect>
+<rect style=cursor:move class="dragTarget" id="blueRect" x="40" y="60" width="30" height="15" fill="blue" stroke="black" stroke-width="2"></rect>
+</svg>
+</div>
+<script>
+var TransformRequestObj
+var TransList
+var DragTarget=null;
+var Dragging = false;
+var OffsetX = 0;
+var OffsetY = 0;
+//---mouse down over element---
+function startDrag(evt)
+{
+	if(!Dragging) //---prevents dragging conflicts on other draggable elements---
+	{
+		if(evt.target.getAttribute("class")=="dragTarget")
+		{
+			DragTarget = evt.target;
+			//---reference point to its respective viewport--
+			var pnt = DragTarget.ownerSVGElement.createSVGPoint();
+			pnt.x = evt.clientX;
+			pnt.y = evt.clientY;
+			//---elements transformed and/or in different(svg) viewports---
+			var sCTM = DragTarget.getScreenCTM();
+			var Pnt = pnt.matrixTransform(sCTM.inverse());
+
+			TransformRequestObj = DragTarget.ownerSVGElement.createSVGTransform()
+			//---attach new or existing transform to element, init its transform list---
+			var myTransListAnim=DragTarget.transform
+			TransList=myTransListAnim.baseVal
+
+			OffsetX = Pnt.x
+			OffsetY = Pnt.y
+
+			Dragging=true;
+		}
+	}
+}
+//---mouse move---
+function drag(evt)
+{
+	if(Dragging)
+	{
+		var pnt = DragTarget.ownerSVGElement.createSVGPoint();
+		pnt.x = evt.clientX;
+		pnt.y = evt.clientY;
+		//---elements in different(svg) viewports, and/or transformed ---
+		var sCTM = DragTarget.getScreenCTM();
+		var Pnt = pnt.matrixTransform(sCTM.inverse());
+		Pnt.x -= OffsetX;
+		Pnt.y -= OffsetY;
+
+		TransformRequestObj.setTranslate(Pnt.x,Pnt.y)
+		TransList.appendItem(TransformRequestObj)
+		TransList.consolidate()
+	}
+}
+//--mouse up---
+function endDrag()
+{
+	Dragging = false ;
+
+}
+</script>
+<!--  -->
+</html>
+<!-- refs -->
+<!-- https://developer.mozilla.org/en-US/docs/Web/SVG/Element/path -->
+<!-- https://svgontheweb.com/  - %de optimizacion via .htdocs-->
+<!-- https://www.w3.org/TR/SVG11/styling.html#SVGStylingProperties -->
