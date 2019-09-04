@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <title>Test Rough Create + Drag n' Drop</title>
   <!-- inali.dev - interact-->
+  <link rel="stylesheet" href="style.css">
   <style media="screen">
   :root {
     --color-obj: #0169B1;
@@ -28,7 +29,7 @@
     width: 150px;
   }
   .dragall {
-    position: fixed;
+    /* position: fixed; */
     height: 150px;
     width: 150px;
     z-index: 100;
@@ -127,11 +128,12 @@ viewBox="179.84337349397592 85.86746987951798 249.78313253012053 294.36144578313
 </svg> -->
 
 
-    <svg xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 130 120">
+    <svg id="main-svg" xmlns="http://www.w3.org/2000/svg"
+    viewBox="-10 -10 150 150">
       <rect class="dragall" x="0" y="0" width="30" height="20" fill="#aafaaa"/>
       <rect class="dragall" x="4" y="5" width="8" height="10" fill="#007bff"/>
-      <rect class="dragall" x="18" y="5" width="8" height="10"   fill="#888"/>
+      <rect class="dragall" x="18" y="5" width="8" height="10" fill="#888"/>
+      <path class="dragall" width="8" height="10" fill="#888" d="M42 27v-20c0-3.7-3.3-7-7-7s-7 3.3-7 7v21l12 15-7 15.7c14.5 13.9 35 2.8 35-13.7 0-13.3-13.4-21.8-26-18zm6 25c-3.9 0-7-3.1-7-7s3.1-7 7-7 7 3.1 7 7-3.1 7-7 7z"/>
     </svg>
 
 
